@@ -1,5 +1,6 @@
 # Travel Agency API
 
+## Backend API
 Run the API from the project root with either of these commands:
 
 ```bash
@@ -12,4 +13,11 @@ or:
 uv run uvicorn main:app --reload
 ```
 
-`main.app:app` is not a valid import path in this repository.
+## Frontend
+From the frontend/ folder, run:
+npm install
+npm run dev
+Then open
+http://localhost:5173
+
+
