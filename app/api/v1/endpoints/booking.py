@@ -149,7 +149,7 @@ def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
     return db_booking
 
 # 4. UPDATE: Modify an existing Booking
-@router.patch("/bookings/{booking_id}", response_model=BookingResponse, summary="Update an existing booking")
+# @router.patch("/bookings/{booking_id}", response_model=BookingResponse, summary="Update an existing booking")
 def update_booking(booking_id: int, booking_update: BookingUpdate, db: Session = Depends(get_db)):
     """
     Update specific fields (dates or agent) of an existing booking. 
@@ -171,7 +171,7 @@ def update_booking(booking_id: int, booking_update: BookingUpdate, db: Session =
     return db_booking
 
 # 5. DELETE: Remove an existing Booking
-@router.delete("/bookings/{booking_id}", status_code=status.HTTP_204_NO_CONTENT, summary="Delete a booking")
+# @router.delete("/bookings/{booking_id}", status_code=status.HTTP_204_NO_CONTENT, summary="Delete a booking")
 def delete_booking(booking_id: int, db: Session = Depends(get_db)):
     """
     permanently delete a booking from the system.
@@ -186,11 +186,11 @@ def delete_booking(booking_id: int, db: Session = Depends(get_db)):
 
 
 # 6. UPDATE: Modify a hotel reservation under a booking
-@router.patch(
-    "/bookings/{booking_id}/hotel-reservations/{reservation_no}",
-    response_model=HotelReservationResponse,
-    summary="Update a hotel reservation",
-)
+# @router.patch(
+#     "/bookings/{booking_id}/hotel-reservations/{reservation_no}",
+#     response_model=HotelReservationResponse,
+#     summary="Update a hotel reservation",
+# )
 def update_hotel_reservation(
     booking_id: int,
     reservation_no: int,
@@ -242,11 +242,11 @@ def update_hotel_reservation(
 
 
 # 7. DELETE: Remove a hotel reservation under a booking
-@router.delete(
-    "/bookings/{booking_id}/hotel-reservations/{reservation_no}",
-    status_code=status.HTTP_204_NO_CONTENT,
-    summary="Delete a hotel reservation",
-)
+# @router.delete(
+#     "/bookings/{booking_id}/hotel-reservations/{reservation_no}",
+#     status_code=status.HTTP_204_NO_CONTENT,
+#     summary="Delete a hotel reservation",
+# )
 def delete_hotel_reservation(booking_id: int, reservation_no: int, db: Session = Depends(get_db)):
     db_reservation = (
         db.query(HotelReservation)
@@ -268,11 +268,11 @@ def delete_hotel_reservation(booking_id: int, reservation_no: int, db: Session =
 
 
 # 8. UPDATE: Modify a flight reservation under a booking
-@router.patch(
-    "/bookings/{booking_id}/flight-reservations/{reservation_no}",
-    response_model=FlightReservationResponse,
-    summary="Update a flight reservation",
-)
+# @router.patch(
+#     "/bookings/{booking_id}/flight-reservations/{reservation_no}",
+#     response_model=FlightReservationResponse,
+#     summary="Update a flight reservation",
+# )
 def update_flight_reservation(
     booking_id: int,
     reservation_no: int,
@@ -328,11 +328,11 @@ def update_flight_reservation(
 
 
 # 9. DELETE: Remove a flight reservation under a booking
-@router.delete(
-    "/bookings/{booking_id}/flight-reservations/{reservation_no}",
-    status_code=status.HTTP_204_NO_CONTENT,
-    summary="Delete a flight reservation",
-)
+# @router.delete(
+#     "/bookings/{booking_id}/flight-reservations/{reservation_no}",
+#     status_code=status.HTTP_204_NO_CONTENT,
+#     summary="Delete a flight reservation",
+# )
 def delete_flight_reservation(booking_id: int, reservation_no: int, db: Session = Depends(get_db)):
     db_reservation = (
         db.query(FlightReservation)

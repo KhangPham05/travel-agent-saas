@@ -8,3 +8,18 @@ wheels/
 
 # Virtual environments
 .venv
+node_modules/
+dist/
+.env
+# Node
+node_modules/
+dist/
+
+# Python
+*.pyc
+
+# Env
+.env
+
+# OS
+.DS_Store

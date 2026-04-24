@@ -11,7 +11,7 @@ def get_travel_service() -> TravelService:
     return TravelService(get_amadeus_client())
 
 
-@router.get("/flights/search")
+ @router.get("/flights/search")
 async def search_flights(
     origin: str,
     destination: str,
@@ -24,7 +24,7 @@ async def search_flights(
         raise HTTPException(status_code=400, detail=str(error)) from error
 
 
-@router.get("/hotels/by-city")
+ @router.get("/hotels/by-city")
 async def get_hotels_by_city(
     city_code: str,
     service: TravelService = Depends(get_travel_service),
@@ -63,7 +63,7 @@ async def get_activities_by_city(
         raise HTTPException(status_code=400, detail=str(error)) from error
 
 
-@router.get("/hotels/offers")
+# @router.get("/hotels/offers")
 async def get_hotel_offers(
     hotel_ids: list[str] = Query(..., alias="hotelIds"),
     check_in_date: str = Query(..., alias="checkInDate"),
