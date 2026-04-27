@@ -25,7 +25,7 @@ class RapidApiClient:
         dest_id: str,
         locale: str = "en-gb",
         page_number: int = 0,
-        currency: str = "AED",
+        currency: str = "USD",
         order_by: str = "attr_book_score",
     ):
         querystring = {
@@ -125,7 +125,7 @@ class RapidApiClient:
         adults: int,
         locale: str = "en-gb",
         page_number: int = 0,
-        currency: str = "AED",
+        currency: str = "USD",
         order_by: str = "BEST",
         flight_type: str = "ONEWAY",
         cabin_class: str = "ECONOMY",

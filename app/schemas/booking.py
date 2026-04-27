@@ -87,7 +87,6 @@ class BookingResponse(BookingBase):
     Booking_Id: int
 
     class Config:
-        # Crucial for SQLAlchemy compatibility
         from_attributes = True
 
 # Helper schema to show User details alongside Bookings
@@ -99,8 +98,36 @@ class UserResponse(BaseModel):
     class Config:
         from_attributes = True
 
-# Advanced Response schema including User information
+# Advanced Response schema including User information and computed total cost
 class BookingDetailResponse(BookingResponse):
     user: UserResponse
     hotel_reservations: list[HotelReservationResponse] = Field(default_factory=list)
     flight_reservations: list[FlightReservationResponse] = Field(default_factory=list)
+    total_cost: Optional[float] = Field(
+        default=None,
+        description="Total trip cost = sum of all flight rates + (hotel rate × nights) + activities"
+    )
+
+    @classmethod
+    def from_orm_with_total(cls, booking):
+        """
+        Build the response and compute total_cost automatically.
+        Formula: Total = Flight rates + (Hotel rate × nights) + Activity prices
+        """
+        obj = cls.model_validate(booking)
+
+        total = 0.0
+
+        # Sum all flight rates
+        for flight in obj.flight_reservations:
+            if flight.Rate is not None:
+                total += flight.Rate
+
+        # Sum hotel rates × number of nights
+        for hotel in obj.hotel_reservations:
+            if hotel.Rate is not None:
+                nights = (hotel.Check_Out_Date - hotel.Check_In_Date).days
+                total += hotel.Rate * max(nights, 1)
+
+        obj.total_cost = round(total, 2)
+        return obj
