@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 
 const API_BASE = (import.meta.env.VITE_API_URL || '/api/v1').replace(/\/$/, '')
 
@@ -18,6 +18,13 @@ const form = reactive({
   check_out: '2026-05-06',
   budget: 1500,
 })
+
+const currentTenant = computed(() => tenants.find(t => t.id === form.tenant_id) || tenants[0])
+const tenantShortName = computed(() => currentTenant.value.name.replace(/^Tenant [AB] - /, ''))
+
+watch(() => form.tenant_id, (id) => {
+  document.body.classList.toggle('tenant-b', id === 'tenant_b')
+}, { immediate: true })
 
 const loading = ref(false)
 const saving = ref(false)
@@ -187,6 +194,7 @@ onMounted(searchTrips)
   <main class="app-shell">
     <section class="hero-card">
       <div>
+        <div class="tenant-badge"><span class="tenant-badge-dot"></span>{{ tenantShortName }}</div>
         <p class="eyebrow">ThriftyBackpacker Phase 2</p>
         <h1>Plan a London trip under a student budget.</h1>
         <p class="hero-copy">The UI now consumes the backend, combines flights + hostels + activities, filters by budget, sorts cheapest first, warns on overspending, and saves bookings.</p>
